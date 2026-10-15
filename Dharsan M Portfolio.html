@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dharsan M | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            accent: '#6366f1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Glassmorphism styling */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #0284c7, #6366f1, #ec4899);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            filter: blur(8px);
+        }
+        .glow-effect:hover::after {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Ambient Background Shapes -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-sky-400/20 dark:bg-sky-600/15 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-purple-400/20 dark:bg-purple-600/15 rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass transition-all duration-300 border-b border-slate-200/50 dark:border-slate-800/50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                Dharsan<span class="text-slate-800 dark:text-slate-100">.M</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" class="p-2.5 rounded-full bg-slate-200/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all focus:outline-none" aria-label="Toggle dark mode">
+                    <i id="themeIcon" class="fas fa-moon text-lg"></i>
+                </button>
+
+                <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition-all font-medium text-sm shadow-sm">
+                    <i class="fab fa-github text-base"></i>
+                    <span>GitHub</span>
+                </a>
+
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50" aria-label="Open menu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div id="mobileMenu" class="hidden md:hidden glass border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-4 space-y-3">
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">About</a>
+            <a href="#skills" class="mobile-link block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Skills</a>
+            <a href="#projects" class="mobile-link block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Projects</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Contact</a>
+            <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 px-4 py-2 mt-2 rounded-xl bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 font-medium">
+                <i class="fab fa-github"></i> GitHub Profile
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-28 flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-brand-500/20 text-brand-600 dark:text-brand-400 font-medium text-sm mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                Welcome to my portfolio
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4">
+                Hi, I'm <span class="bg-gradient-to-r from-brand-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent">Dharsan M</span>
+            </h1>
+
+            <div class="h-12 sm:h-14 flex items-center justify-center text-xl sm:text-2xl md:text-3xl font-semibold text-slate-600 dark:text-slate-300 mb-6">
+                <span>Passionate&nbsp;</span>
+                <span id="typedText" class="text-brand-600 dark:text-brand-400 border-r-2 border-brand-500 pr-1 animate-pulse"></span>
+            </div>
+
+            <p class="max-w-2xl text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Computer Science Engineering student passionate about problem solving, object-oriented software design, and scalable systems using C, C++, Python, and Java.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="#projects" class="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-all shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5">
+                    View Projects <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                </a>
+                <a href="#contact" class="px-6 py-3.5 rounded-xl glass-card text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all border border-slate-300 dark:border-slate-700 hover:-translate-y-0.5">
+                    Contact Me
+                </a>
+                <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl glass-card text-slate-700 dark:text-slate-300 hover:text-brand-500 dark:hover:text-brand-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all border border-slate-300 dark:border-slate-700" title="Visit GitHub">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-2">About Me</h2>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-2xl glass-card p-4 glow-effect flex flex-col items-center justify-center text-center shadow-xl">
+                        <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center text-white text-4xl sm:text-5xl font-extrabold shadow-inner mb-4">
+                            DM
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Dharsan M</h3>
+                        <p class="text-sm text-brand-600 dark:text-brand-400 font-medium">Software Engineering Student</p>
+                        <div class="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                            <i class="fas fa-map-marker-alt text-red-500"></i> Tamil Nadu, India
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 space-y-6">
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-sm space-y-4">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fas fa-graduation-cap text-brand-500"></i> Education & Background
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            I am currently pursuing my degree at <span class="font-semibold text-slate-900 dark:text-white">V S B COLLEGE OF ENGINEERING AND TECHNICAL CAMPUS</span>. I have a strong foundation in core computer science principles and software development.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            My technical toolkit includes programming in **C, C++, Python, and Java**. I focus on writing clean, efficient, and well-structured code.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 font-semibold">College</span>
+                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">V S B Engineering Campus</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 font-semibold">Focus Areas</span>
+                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200">Software Logic & OOP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-2">Technical Skills</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">Core programming languages and technological skill sets</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- C -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 hover:border-brand-500/50 dark:hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                        C
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">C Language</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Structured Programming & Memory Operations</p>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-blue-600 h-2.5 rounded-full w-[85%]"></div>
+                    </div>
+                </div>
+
+                <!-- C++ -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 hover:border-brand-500/50 dark:hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 group-hover:scale-110 transition-transform">
+                        C++
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">C++</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">OOP Principles, STL & Algorithm Logic</p>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-indigo-600 h-2.5 rounded-full w-[80%]"></div>
+                    </div>
+                </div>
+
+                <!-- Python -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 hover:border-brand-500/50 dark:hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Python</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Automation, Scripting & Data Handlers</p>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-yellow-500 h-2.5 rounded-full w-[85%]"></div>
+                    </div>
+                </div>
+
+                <!-- Java -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 hover:border-brand-500/50 dark:hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">Java</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Core Java & Enterprise Logic Concepts</p>
+                    <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-red-500 h-2.5 rounded-full w-[75%]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-2">Projects & Repositories</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">Projects hosted on GitHub</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400">C++ / DSA</span>
+                            <i class="fas fa-folder-open text-slate-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">Data Structures Suite</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                            A collection of data structure implementations and algorithmic solutions engineered in C++.
+                        </p>
+                    </div>
+                    <div class="p-4 px-6 bg-slate-100/50 dark:bg-slate-900/50 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
+                        <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
+                            GitHub Repository <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-yellow-500/10 text-yellow-600 dark:text-yellow-400">Python</span>
+                            <i class="fas fa-folder-open text-slate-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">Python Scripts & Tools</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                            Modular Python tools and scripts for task automation and file parsing.
+                        </p>
+                    </div>
+                    <div class="p-4 px-6 bg-slate-100/50 dark:bg-slate-900/50 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
+                        <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
+                            GitHub Repository <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="p-6 flex-grow">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-red-500/10 text-red-600 dark:text-red-400">Java</span>
+                            <i class="fas fa-folder-open text-slate-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">Java OOP Applications</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                            Object-oriented Java application focusing on standard design patterns and logic implementation.
+                        </p>
+                    </div>
+                    <div class="p-4 px-6 bg-slate-100/50 dark:bg-slate-900/50 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
+                        <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
+                            GitHub Repository <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-2">Get In Touch</h2>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">Connect for discussions and opportunities</p>
+                <div class="w-16 h-1 bg-brand-500 mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 text-center space-y-4">
+                    <i class="fab fa-github text-4xl text-brand-600 dark:text-brand-400"></i>
+                    <h3 class="text-xl font-bold">Connect on GitHub</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">
+                        You can follow my code contributions and repositories on GitHub.
+                    </p>
+                    <a href="https://github.com/Dharsanhub" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm transition-all shadow-md">
+                        Visit Dharsanhub <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200/60 dark:border-slate-800/60 glass py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+            <div>
+                &copy; <span id="year"></span> Dharsan M. All rights reserved.
+            </div>
+            <div class="font-medium text-slate-600 dark:text-slate-300">
+                This website was created by <span class="bg-gradient-to-r from-brand-600 to-indigo-500 bg-clip-text text-transparent font-bold">Aaryah</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            html.classList.remove('dark');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const words = ["C Developer", "C++ Enthusiast", "Python Programmer", "Java Developer"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedText = document.getElementById('typedText');
+
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) {
+                typedText.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedText.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+        type();
+    </script>
+</body>
+</html>
